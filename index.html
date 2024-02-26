@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Calculator</h2>
+    <table>
+        <tr>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Total Work Hours</th>
+        </tr>
+        <!-- Days from Monday to Friday -->
+        <tr class="day-row">
+            <td class="day">Monday</td>
+            <td><input type="time" class="startTime" value="07:30" onchange="calculateWorkHours(this)" required></td>
+            <td><input type="time" class="endTime" value="17:18" onchange="calculateWorkHours(this)" required></td>
+            <td class="result">8h48</td>
+        </tr>
+        <tr class="day-row">
+            <td class="day">Tuesday</td>
+            <td><input type="time" class="startTime" value="07:30" onchange="calculateWorkHours(this)" required></td>
+            <td><input type="time" class="endTime" value="17:18" onchange="calculateWorkHours(this)" required></td>
+            <td class="result">8h48</td>
+        </tr>
+        <tr class="day-row">
+            <td class="day">Wednesday</td>
+            <td><input type="time" class="startTime" value="07:30" onchange="calculateWorkHours(this)" required></td>
+            <td><input type="time" class="endTime" value="17:18" onchange="calculateWorkHours(this)" required></td>
+            <td class="result">8h48</td>
+        </tr>
+        <tr class="day-row">
+            <td class="day">Thursday</td>
+            <td><input type="time" class="startTime" value="07:30" onchange="calculateWorkHours(this)" required></td>
+            <td><input type="time" class="endTime" value="17:18" onchange="calculateWorkHours(this)" required></td>
+            <td class="result">8h48</td>
+        </tr>
+        <tr class="day-row">
+            <td class="day">Friday</td>
+            <td><input type="time" class="startTime" value="07:30" onchange="calculateWorkHours(this)" required></td>
+            <td><input type="time" class="endTime" value="17:18" onchange="calculateWorkHours(this)" required></td>
+            <td class="result">8h48</td>
+        </tr>
+        <tr id="weekly-total">
+            <td colspan="3">Weekly Total</td>
+            <td id="weekly-total-hours">0h00</td>
+        </tr>        
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
