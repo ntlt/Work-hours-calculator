@@ -20,16 +20,15 @@ function calculateWorkHours(dayRow) {
     const endTime = dayRow.querySelector('.endTime').value;
     const resultElement = dayRow.querySelector('.result');
 
-    const selectedDate = new Date();
-    const dayName = getDayName(selectedDate.getDay());
-    dayElement.innerText = dayName;
+    const dayIndex = Array.from(dayRow.parentNode.children).indexOf(dayRow) - 1; // Calculate the index of the day row
+    const dayName = getDayName(dayIndex);
 
-    const start = new Date(`${selectedDate.toISOString().slice(0, 10)} ${startTime}`);
-    const end = new Date(`${selectedDate.toISOString().slice(0, 10)} ${endTime}`);
+    const start = new Date(`${new Date().toISOString().slice(0, 10)} ${startTime}`);
+    const end = new Date(`${new Date().toISOString().slice(0, 10)} ${endTime}`);
 
     // Subtract lunch break (11:30 - 12:30)
-    const lunchStart = new Date(`${selectedDate.toISOString().slice(0, 10)} 11:30`);
-    const lunchEnd = new Date(`${selectedDate.toISOString().slice(0, 10)} 12:30`);
+    const lunchStart = new Date(`${new Date().toISOString().slice(0, 10)} 11:30`);
+    const lunchEnd = new Date(`${new Date().toISOString().slice(0, 10)} 12:30`);
 
     if (start < lunchStart && end > lunchEnd) {
         // Adjust end time if it's after lunch break
@@ -46,11 +45,13 @@ function calculateWorkHours(dayRow) {
     const formattedHours = Math.floor(maxWorkHours);
     const formattedMinutes = Math.round((maxWorkHours - formattedHours) * 60);
 
+    dayElement.innerText = dayName;
     resultElement.innerText = `Total work hours: ${formattedHours} hours ${formattedMinutes} minutes`;
+    updateWeeklyTotal();
 }
 
 function getDayName(dayIndex) {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     return days[dayIndex];
 }
 
