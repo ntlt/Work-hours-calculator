@@ -8,20 +8,22 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('change', function (event) {
         const target = event.target;
         if (target.matches('.startTime, .endTime')) {
-            calculateWorkHours(target.closest('.day-row'));
+            const dayRow = target.closest('.day-row');
+            calculateWorkHours(dayRow);
             updateWeeklyTotal();
+
+            if (getDayName(new Date().getDay()) === 'Friday') {
+                const remainingHours = calculateRemainingHours();
+                displayLeaveInfo(remainingHours);
+            }
         }
     });
 });
 
 function calculateWorkHours(dayRow) {
-    const dayElement = dayRow.querySelector('.day');
     const startTime = dayRow.querySelector('.startTime').value;
     const endTime = dayRow.querySelector('.endTime').value;
     const resultElement = dayRow.querySelector('.result');
-
-    const dayIndex = Array.from(dayRow.parentNode.children).indexOf(dayRow) - 1; // Calculate the index of the day row
-    const dayName = getDayName(dayIndex);
 
     const start = new Date(`${new Date().toISOString().slice(0, 10)} ${startTime}`);
     const end = new Date(`${new Date().toISOString().slice(0, 10)} ${endTime}`);
@@ -45,13 +47,11 @@ function calculateWorkHours(dayRow) {
     const formattedHours = Math.floor(maxWorkHours);
     const formattedMinutes = Math.round((maxWorkHours - formattedHours) * 60);
 
-    dayElement.innerText = dayName;
-    resultElement.innerText = `Total work hours: ${formattedHours} hours ${formattedMinutes} minutes`;
-    updateWeeklyTotal();
+    resultElement.innerText = `${formattedHours} hours ${formattedMinutes} minutes`;
 }
 
 function getDayName(dayIndex) {
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return days[dayIndex];
 }
 
@@ -76,3 +76,5 @@ function updateWeeklyTotal() {
     const weeklyTotalElement = document.getElementById('weekly-total-hours');
     weeklyTotalElement.innerText = `${weeklyTotalHours}h${weeklyTotalFormattedMinutes.toString().padStart(2, '0')}`;
 }
+
+
